@@ -36,7 +36,9 @@ pipeline {
         stage('Selenium Testing') {
             steps {
                 sh "node test.js"
-                input "testing ok?"     
+                //input "testing ok?" 
+                message "Press Ok to continue"
+		        submitter "user1,user2"    
             }
         }
         
