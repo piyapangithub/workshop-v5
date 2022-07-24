@@ -35,7 +35,8 @@ pipeline {
 
         stage('Selenium Testing') {
             steps {
-                sh "node test.js"     
+                sh "node test.js"
+                input "testing ok?"     
             }
         }
         
