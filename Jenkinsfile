@@ -35,8 +35,7 @@ pipeline {
 
         stage('Selenium Testing') {
             steps {
-                sh "node test.js"
-                
+                sh "node test.js"     
             }
             steps {
                 input "testing ok?"               
@@ -60,7 +59,7 @@ pipeline {
                 
             //}
         //}
-        
+
         stage('Deployment'){
             steps {
                 sh "docker-compose up -d"
