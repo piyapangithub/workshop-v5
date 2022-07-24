@@ -32,24 +32,6 @@ pipeline {
         //         sh 'ANSIBLE_ROLES_PATH="$PWD/ansible-script/roles" ansible-playbook -vvv ./ansible-script/playbook/web-server/web-server.yml -i ./ansible-script/host -u root -e "state=prepareation tagnumber=${BUILD_NUMBER}"'
         //     }
         // }
-        
-        //stage('Build docker image') {
-            //steps {
-                //script {
-                    //docker.withRegistry('', 'dockerhub') {
-                        //def slackImage = docker.build("${env.image}:${BUILD_NUMBER}")
-                        //slackImage.push()
-                        //slackImage.push('latest')
-                    //}
-                //}
-            //}
-        //}
-         //stage('Selenium Testing') {
-            //steps {
-                //input "Does the staging environment look ok?"
-                
-            //}
-        //}
 
         stage('Selenium Testing') {
             steps {
@@ -60,13 +42,31 @@ pipeline {
                 input "testing ok?"               
             }
         }
-
-        // stage('Deployment'){
-        //     steps {
-        //         sh "docker-compose up -d"
-        //     }
+        
+        stage('Build docker image') {
+            steps {
+                script {
+                    docker.withRegistry('', 'dockerhub') {
+                        def slackImage = docker.build("${env.image}:${BUILD_NUMBER}")
+                        slackImage.push()
+                        slackImage.push('latest')
+                    }
+                }
+            }
+        }
+         //stage('Selenium Testing') {
+            //steps {
+                //input "Does the staging environment look ok?"
+                
+            //}
+        //}
+        
+        stage('Deployment'){
+            steps {
+                sh "docker-compose up -d"
+            }
             
-        // }
+        }
 
         // stage('tag docker image') {
         //     steps {
