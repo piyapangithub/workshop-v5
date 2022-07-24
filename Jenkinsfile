@@ -37,9 +37,6 @@ pipeline {
             steps {
                 sh "node test.js"     
             }
-            steps {
-                input "testing ok?"               
-            }
         }
         
         // stage('Build docker image') {
