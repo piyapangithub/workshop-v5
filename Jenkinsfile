@@ -56,6 +56,9 @@ pipeline {
                 sh "node test.js"
                 
             }
+            steps {
+                input "testing ok?"               
+            }
         }
 
         // stage('Deployment'){
